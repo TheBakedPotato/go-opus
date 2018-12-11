@@ -3,9 +3,12 @@ package main
 import (
 	"fmt"
 
-	"github.com/thebakedpotato/go-opus"
+	opus "github.com/thebakedpotato/go-opus"
 )
 
 func main() {
-	fmt.Println(opus.Random())
+	err := opus.CreateEncoder()
+	if err == opus.Ok {
+		fmt.Println("everything is okie dokie")
+	}
 }
