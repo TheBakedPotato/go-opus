@@ -1,12 +1,11 @@
 package opus
 
 /*
-#cgo pkg-config: opus
+#cgo LDFLAGS: -lopus
 #include <stdlib.h>
-#include <opus.h>
+#include <opus/opus.h>
 */
 import "C"
-import "unsafe"
 
 type OpusApplication int
 type OpusError int
@@ -31,6 +30,13 @@ const (
 func CreateEncoder() OpusError {
 	var err C.int
 	enc := C.opus_encoder_create(16000, 2, C.int(AppAudio), &err)
-	defer C.free(unsafe.Pointer(enc))
+	defer C.opus_encoder_destroy(enc)
+	return OpusError(err)
+}
+
+func CreateDecoder() OpusError {
+	var err C.int
+	dec := C.opus_decoder_create(48000, 2, &err)
+	defer C.opus_decoder_destroy(dec)
 	return OpusError(err)
 }

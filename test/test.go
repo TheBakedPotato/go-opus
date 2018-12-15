@@ -11,4 +11,9 @@ func main() {
 	if err == opus.Ok {
 		fmt.Println("everything is okie dokie")
 	}
+
+	err = opus.CreateDecoder()
+	if err == opus.Ok {
+		fmt.Println("Decoder success")
+	}
 }
